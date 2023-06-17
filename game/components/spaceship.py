@@ -40,5 +40,5 @@ class Spaceship:
             self.rect.y += 10
 
     def move_up(self):
-        if self.rect.top > self.Y_POS:
+        if self.rect.top > (SCREEN_HEIGHT // 2):
             self.rect.y -= 10
