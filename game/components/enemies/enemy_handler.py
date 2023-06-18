@@ -1,6 +1,9 @@
 from game.components.enemies.ship import Ship
+from game.components.enemies.spider import Spider
+from random import choice
 
 class EnemyHandler:
+
     def __init__(self):
         self.enemies = []
     
@@ -19,7 +22,7 @@ class EnemyHandler:
 
     def add_enemy(self):
         if len(self.enemies) < 3:
-            self.enemies.append(Ship())
+            self.enemies.append(choice((Ship(), Spider())))
 
     def remove_enemy(self, enemy):
         self.enemies.remove(enemy)
