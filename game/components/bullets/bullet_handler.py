@@ -1,5 +1,6 @@
-from game.utils.constants import BULLET_ENEMY_TYPE
+from game.utils.constants import BULLET_ENEMY_TYPE, BULLET_PLAYER_TYPE
 from game.components.bullets.bullet_enemy import BulletEnemy
+from game.components.bullets.bullet_spaceship import BulletSpaceship
 
 class BulletHandler:
     def __init__(self):
@@ -18,6 +19,8 @@ class BulletHandler:
     def add_bullet(self, type, center):
         if type == BULLET_ENEMY_TYPE:
             self.bullets.append(BulletEnemy(center))
+        elif type == BULLET_PLAYER_TYPE:
+            self.bullets.append(BulletSpaceship(center))
 
     def remove_bullet(self, bullet):
         if not bullet.is_alive:

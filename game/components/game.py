@@ -38,8 +38,8 @@ class Game:
 
     def update(self):
         user_input = pygame.key.get_pressed()
-        self.player.update(user_input)
-        self.enemy_handler.update(self.bullet_handler)
+        self.player.update(user_input, self.bullet_handler)
+        self.enemy_handler.update(self.bullet_handler, self.player)
         self.bullet_handler.update(self.player)
         if not self.player.is_alive:
             pygame.time.delay(30)

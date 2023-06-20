@@ -10,6 +10,7 @@ class Enemy():
     MOV_X = [LEFT, RIGHT]
     INTERVAL = 100
     SHOOTING_TIME = 30
+    TYPE = BULLET_ENEMY_TYPE
 
     def __init__(self, image):
         self.image = image
@@ -21,12 +22,16 @@ class Enemy():
         self.index = 0
         self.shooting_time = 0
 
-    def update(self, bullet_handler):
+    def update(self, bullet_handler, object):
         if self.rect.y >= SCREEN_HEIGHT:
             self.is_alive = False
         self.shooting_time += 1
         self.move()
         self.shoot(bullet_handler)
+
+        if self.rect.colliderect(object.rect):
+            object.is_alive = False
+            self.is_alive = False
     
 
     def draw(self, screen):
@@ -48,4 +53,4 @@ class Enemy():
 
     def shoot(self, bullet_handler):
         if (self.shooting_time % self.SHOOTING_TIME) == 0:
-            bullet_handler.add_bullet(BULLET_ENEMY_TYPE, self.rect.center)
+            bullet_handler.add_bullet(self.TYPE, self.rect.center)
