@@ -1,10 +1,10 @@
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import BULLET, BULLET_PLAYER_TYPE
+from game.utils.constants import BULLET
 import pygame
 
 class BulletSpaceship(Bullet):
     WIDTH = 8
-    HEIGHT = 25
+    HEIGHT = 20
     SPEED = 20
 
     def __init__(self, center):
@@ -14,11 +14,4 @@ class BulletSpaceship(Bullet):
 
     def update(self, enemy):
         self.rect.y -= self.SPEED
-
-        if self.rect.y <= 0:
-            self.is_alive = False
-        
-        if not enemy.TYPE == BULLET_PLAYER_TYPE:
-            if self.rect.colliderect(enemy.rect):
-                enemy.is_alive = False
-                self.is_alive = False
+        super().update(enemy)

@@ -38,12 +38,13 @@ class Game:
 
     def update(self):
         user_input = pygame.key.get_pressed()
-        self.player.update(user_input, self.bullet_handler)
-        self.enemy_handler.update(self.bullet_handler, self.player)
-        self.bullet_handler.update(self.player)
+        self.player.update(user_input, self.bullet_handler, self.enemy_handler)
+        self.enemy_handler.update(self.bullet_handler)
+        self.bullet_handler.update(self.player, self.enemy_handler.get_list())
         if not self.player.is_alive:
-            pygame.time.delay(30)
+            pygame.time.delay(100)
             self.playing = False
+        
         
 
     def draw(self):

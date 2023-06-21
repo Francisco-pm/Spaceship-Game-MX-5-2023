@@ -32,7 +32,7 @@ FONT_STYLE = 'freesansbold.ttf'
 
 BULLET_ENEMY_TYPE = "enemy"
 
-BULLET_PLAYER_TYPE = "player"
+BULLET_SPACESHIP_TYPE = "player"
 
 LEFT = "left"
 RIGHT = "right"

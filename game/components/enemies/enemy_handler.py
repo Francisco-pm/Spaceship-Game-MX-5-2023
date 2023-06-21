@@ -1,17 +1,22 @@
 from game.components.enemies.ship import Ship
 from game.components.enemies.spider import Spider
+from game.utils.constants import BULLET_ENEMY_TYPE
 from random import choice
 
 class EnemyHandler:
+    TYPE = BULLET_ENEMY_TYPE
 
     def __init__(self):
         self.enemies = []
     
-    def update(self, bullet_handler, object):
+    def get_list(self):
+        return self.enemies
+
+    def update(self, bullet_handler):
         self.add_enemy()
 
         for enemy in self.enemies:
-            enemy.update(bullet_handler, object)
+            enemy.update(bullet_handler)
             if not enemy.is_alive:
                 self.remove_enemy(enemy)
 

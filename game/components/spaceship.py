@@ -1,13 +1,17 @@
 import pygame 
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET_PLAYER_TYPE
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET_SPACESHIP_TYPE
+from game.components.bullets.bullet_spaceship import BulletSpaceship
+from game.components.bullets.bullet_enemy import BulletEnemy
+from game.components.enemies.enemy_handler import EnemyHandler
+
+
 
 class Spaceship:
     WIDTH = 40
     HEIGHT = 60
     X_POS = (SCREEN_WIDTH // 2) - WIDTH 
     Y_POS = (SCREEN_HEIGHT // 2) + HEIGHT
-    TYPE = BULLET_PLAYER_TYPE
-    SHOOTING_TIME = 10
+    SHOOTING_TIME = 4
 
     def __init__(self):
         self.image = SPACESHIP
@@ -18,7 +22,7 @@ class Spaceship:
         self.is_alive = True
         self.shooting_time = 0
 
-    def update(self, user_input, bullet_handler):
+    def update(self, user_input, bullet_handler, enemy_handler):
         if user_input[pygame.K_LEFT]:
             self.move_left()
         elif user_input[pygame.K_RIGHT]:
@@ -29,9 +33,10 @@ class Spaceship:
             self.move_down()
 
         if user_input[pygame.K_SPACE]:
-            if (self.shooting_time % self.SHOOTING_TIME) == 0:
-                self.shoot(bullet_handler)
-        self.shooting_time += 1
+            self.shoot(bullet_handler)
+
+        self.collide(bullet_handler.get_list())
+        self.collide(enemy_handler.get_list())
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -52,11 +57,15 @@ class Spaceship:
         if self.rect.top > (SCREEN_HEIGHT // 2):
             self.rect.y -= 10
 
-    def shoot(self, bullet_handler,):
-        bullet_handler.add_bullet(self.TYPE, self.rect.center)
+    def shoot(self, bullet_handler):
+        if (self.shooting_time % self.SHOOTING_TIME) == 0:
+            bullet_handler.add_bullet(BULLET_SPACESHIP_TYPE, self.rect.center)
+        self.shooting_time += 1
 
-    def collide(self, object):
-        if self.rect.colliderect(object.rect):
-            object.is_alive = False
-            self.is_alive = False
-
+    def collide(self, objects):
+        if not (type(objects) is Spaceship):
+            for object in objects:
+                if not (type(objects) is BulletSpaceship):
+                    if self.rect.colliderect(object.rect):
+                        object.is_alive = False
+                        self.is_alive = False

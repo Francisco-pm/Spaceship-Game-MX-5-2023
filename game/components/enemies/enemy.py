@@ -22,17 +22,13 @@ class Enemy():
         self.index = 0
         self.shooting_time = 0
 
-    def update(self, bullet_handler, object):
+    def update(self, bullet_handler):
         if self.rect.y >= SCREEN_HEIGHT:
             self.is_alive = False
         self.shooting_time += 1
         self.move()
         self.shoot(bullet_handler)
 
-        if self.rect.colliderect(object.rect):
-            object.is_alive = False
-            self.is_alive = False
-    
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
