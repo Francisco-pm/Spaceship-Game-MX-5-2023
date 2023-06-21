@@ -68,3 +68,8 @@ class Spaceship:
                     if self.rect.colliderect(object.rect):
                         object.is_alive = False
                         self.is_alive = False
+
+    def reset(self):
+        self.rect.x = self.X_POS
+        self.rect.y = self.Y_POS
+        self.is_alive = True

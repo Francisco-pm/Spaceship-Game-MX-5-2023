@@ -15,6 +15,7 @@ class BulletHandler:
                     bullet.update(enemy)
             if not bullet.is_alive:
                 self.remove_bullet(bullet)
+            
 
     def get_list(self):
         return self.bullets
@@ -31,3 +32,6 @@ class BulletHandler:
 
     def remove_bullet(self, bullet):
         self.bullets.remove(bullet)
+
+    def reset(self):
+        self.bullets = []

@@ -4,10 +4,10 @@ from game.utils.constants import BULLET_ENEMY_TYPE
 from random import choice
 
 class EnemyHandler:
-    TYPE = BULLET_ENEMY_TYPE
 
     def __init__(self):
         self.enemies = []
+        self.number_enemies_destroyed = 0
     
     def get_list(self):
         return self.enemies
@@ -17,9 +17,10 @@ class EnemyHandler:
 
         for enemy in self.enemies:
             enemy.update(bullet_handler)
+            if enemy.is_destroyed:
+                self.number_enemies_destroyed += 1
             if not enemy.is_alive:
                 self.remove_enemy(enemy)
-
 
     def draw(self, screen):
         for enemy in self.enemies:
@@ -31,3 +32,7 @@ class EnemyHandler:
 
     def remove_enemy(self, enemy):
         self.enemies.remove(enemy)
+
+    def reset(self):
+        self.enemies = []
+        self.number_enemies_destroyed = 0

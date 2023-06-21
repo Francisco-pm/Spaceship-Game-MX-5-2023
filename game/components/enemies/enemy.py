@@ -10,7 +10,6 @@ class Enemy():
     MOV_X = [LEFT, RIGHT]
     INTERVAL = 100
     SHOOTING_TIME = 30
-    TYPE = BULLET_ENEMY_TYPE
 
     def __init__(self, image):
         self.image = image
@@ -19,6 +18,7 @@ class Enemy():
         self.rect.y = self.Y_POS
         self.mov_x = random.choice(self.MOV_X)
         self.is_alive = True
+        self.is_destroyed = False
         self.index = 0
         self.shooting_time = 0
 
@@ -49,4 +49,4 @@ class Enemy():
 
     def shoot(self, bullet_handler):
         if (self.shooting_time % self.SHOOTING_TIME) == 0:
-            bullet_handler.add_bullet(self.TYPE, self.rect.center)
+            bullet_handler.add_bullet(BULLET_ENEMY_TYPE, self.rect.center)
