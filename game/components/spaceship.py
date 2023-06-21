@@ -1,8 +1,7 @@
 import pygame 
 from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET_SPACESHIP_TYPE
 from game.components.bullets.bullet_spaceship import BulletSpaceship
-from game.components.bullets.bullet_enemy import BulletEnemy
-from game.components.enemies.enemy_handler import EnemyHandler
+
 
 
 
@@ -65,7 +64,7 @@ class Spaceship:
     def collide(self, objects):
         if not (type(objects) is Spaceship):
             for object in objects:
-                if not (type(objects) is BulletSpaceship):
+                if not (type(object) is BulletSpaceship):
                     if self.rect.colliderect(object.rect):
                         object.is_alive = False
                         self.is_alive = False
