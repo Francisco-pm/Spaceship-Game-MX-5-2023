@@ -3,8 +3,8 @@ from game.utils.constants import BULLET
 import pygame
 
 class BulletSpaceship(Bullet):
-    WIDTH = 8
-    HEIGHT = 20
+    WIDTH = 13
+    HEIGHT = 25
     SPEED = 20
 
     def __init__(self, center):

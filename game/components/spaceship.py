@@ -10,7 +10,8 @@ class Spaceship:
     HEIGHT = 60
     X_POS = (SCREEN_WIDTH // 2) - WIDTH 
     Y_POS = (SCREEN_HEIGHT // 2) + HEIGHT
-    SHOOTING_TIME = 4
+    SHOOTING_TIME = 6
+    SPEED = 15
 
     def __init__(self):
         self.image = SPACESHIP
@@ -42,19 +43,19 @@ class Spaceship:
 
     def move_left(self):
         if self.rect.left > 0:
-            self.rect.x -= 10
+            self.rect.x -= self.SPEED
         
     def move_right(self):
         if self.rect.right < SCREEN_WIDTH:
-            self.rect.x += 10
+            self.rect.x += self.SPEED
 
     def move_down(self):
         if self.rect.bottom < SCREEN_HEIGHT:
-            self.rect.y += 10
+            self.rect.y += self.SPEED
 
     def move_up(self):
         if self.rect.top > (SCREEN_HEIGHT // 2):
-            self.rect.y -= 10
+            self.rect.y -= self.SPEED
 
     def shoot(self, bullet_handler):
         if (self.shooting_time % self.SHOOTING_TIME) == 0:

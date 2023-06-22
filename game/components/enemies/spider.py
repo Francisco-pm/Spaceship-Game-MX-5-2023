@@ -10,6 +10,7 @@ class Spider(Enemy):
     SPEED_Y = 3
     SPEED_X = 7
     INTERVAL = 15
+    SHOOTING_TIME = 50
     
 
     def __init__(self):

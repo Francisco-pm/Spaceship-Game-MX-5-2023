@@ -9,7 +9,7 @@ class Bullet:
         self.is_alive = True
 
     def update(self, object):
-        if self.rect.y >= SCREEN_HEIGHT:
+        if self.rect.y > SCREEN_HEIGHT:
             self.is_alive = False
         
         if self.rect.colliderect(object.rect):

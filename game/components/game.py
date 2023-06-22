@@ -86,6 +86,7 @@ class Game:
         if self.number_deaths == 0:
             text, text_rect = text_utils.get_message("Press any key to start", 30, WHITE_COLOR)
             self.screen.blit(text, text_rect)
+            self.screen.blit(self.player.image, ((SCREEN_WIDTH//2),  (SCREEN_HEIGHT//3)))
         else:
             text, text_rect = text_utils.get_message("GAME OVER", 30, WHITE_COLOR)
             self.screen.blit(text, text_rect)
@@ -97,6 +98,7 @@ class Game:
             self.screen.blit(max_score, max_score_rect)
             tries, tries_rect = text_utils.get_message(f"You already died: {self.number_deaths} times", 30, WHITE_COLOR, (SCREEN_WIDTH // 2), (SCREEN_HEIGHT - 40))
             self.screen.blit(tries, tries_rect)
+            self.screen.blit(self.player.image, ((SCREEN_WIDTH//2),  (SCREEN_HEIGHT//3)))
 
     def draw_score(self):
         score, score_rect = text_utils.get_message(f"Your score is: {self.score}", 20 , WHITE_COLOR, 1000, 40)
