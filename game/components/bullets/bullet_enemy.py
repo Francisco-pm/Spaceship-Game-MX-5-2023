@@ -13,10 +13,7 @@ class BulletEnemy(Bullet):
         super().__init__(self.image, center)
 
     def update(self, player):
-        self.rect.y += self.SPEED
-        if self.rect.y > SCREEN_HEIGHT:
-            self.is_alive = False
-        
+        self.move()
         if self.rect.colliderect(player.rect):
             if player.invincible or player.shielded:
                 self.is_alive = False
@@ -24,4 +21,9 @@ class BulletEnemy(Bullet):
                 player.is_destroyed = True
                 player.get_hit()
                 self.is_alive = False
+    
+    def move(self):
+        self.rect.y += self.SPEED
+        if self.rect.y > SCREEN_HEIGHT:
+            self.is_alive = False
         

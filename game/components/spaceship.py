@@ -1,5 +1,6 @@
 import pygame 
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET_SPACESHIP_TYPE, SPACESHIP_SHIELD, RESET
+import random
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET_SPACESHIP_TYPE, SPACESHIP_SHIELD, RESET, SPACESHIP_BLINK1, SPACESHIP_BLINK2, SPACESHIP_BLINK3
 from game.components.bullets.bullet_spaceship import BulletSpaceship
 from game.components.power_ups.shield import Shield
 
@@ -62,6 +63,16 @@ class Spaceship:
             self.is_alive = False
 
     def draw(self, screen):
+        if self.invincible:
+            self.image = random.choice([SPACESHIP_BLINK1, SPACESHIP_BLINK3])
+            self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
+        elif self.shielded:
+            self.image = SPACESHIP_SHIELD
+            self.image = pygame.transform.scale(self.image, (self.WIDTH +10, self.HEIGHT + 10))
+        else:
+            self.image = SPACESHIP
+            self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
+            
         screen.blit(self.image, self.rect)
         
     def get_hit(self):
@@ -103,8 +114,7 @@ class Spaceship:
         self.time_up = power_up.time_up
         if type(power_up) == Shield:
             self.shielded = True
-            self.image = SPACESHIP_SHIELD
-            self.image = pygame.transform.scale(self.image, (self.WIDTH +10, self.HEIGHT + 10))
+
 
     def desactivate_power_up(self, reset=None):
         if reset is None:

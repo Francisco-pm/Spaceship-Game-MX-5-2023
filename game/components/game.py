@@ -1,6 +1,6 @@
 import pygame
 
-from game.utils.constants import BG_1, BG_2, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, WHITE_COLOR
+from game.utils.constants import BG_1, BG_2, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, WHITE_COLOR, MUSIC_BOSS, MUSIC_MENU, MUSIC_ROUND
 from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_handler import EnemyHandler
 from game.components.enemies.bosses.boss_handler import BossHandler
@@ -34,6 +34,9 @@ class Game:
     def run(self):
         # Game loop: events - update - draw
         self.running = True
+        pygame.mixer.music.load(MUSIC_ROUND)
+        pygame.mixer.music.play(-1)
+        pygame.mixer_music.set_volume(1.0)
         while self.running:
             self.events()
             self.update()
@@ -55,13 +58,13 @@ class Game:
     def update(self):
         if self.playing:
             user_input = pygame.key.get_pressed()
+            self.change_round()
             self.player.update(user_input, self.bullet_handler, self.enemy_handler, self.boss_handler)
-            self.boss_handler.update(self.bullet_handler, self.round)
+            self.boss_handler.update(self.bullet_handler, self.enemy_handler)
             self.enemy_handler.update(self.bullet_handler, self.boss_handler)
             self.bullet_handler.update(self.player, self.enemy_handler.get_list(), self.boss_handler.get_list())
             self.power_ups_handler.update(self.player)
             self.score = self.get_score()
-            self.change_round()
             if not self.player.is_alive:
                 pygame.time.delay(100)
                 self.playing = False
@@ -82,6 +85,11 @@ class Game:
             self.draw_menu()
         pygame.display.update()
         pygame.display.flip()
+
+
+        
+
+
 
     def draw_background(self):
         if self.round == 1:
@@ -122,10 +130,15 @@ class Game:
         return self.enemy_handler.number_enemies_destroyed + (self.boss_handler.bosses_defetead * 100)
     
     def change_round(self):
-        if self.score > 2 and self.boss_handler.bosses_defetead < 1:
-            self.round = 2
-        else:
+        if  self.enemy_handler.enemy_round and self.enemy_handler.number_enemies_destroyed_in_round == 0:
             self.round = 1
+
+        elif self.boss_handler.boss_round and self.boss_handler.bosses_defetead_in_round == 0:
+            self.round = 2
+
+
+        
+        
 
     def draw_score(self):
         score, score_rect = text_utils.get_message(f"Your score is: {self.score}", 20 , WHITE_COLOR, 1000, 40)
