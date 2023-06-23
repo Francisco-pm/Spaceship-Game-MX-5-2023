@@ -21,6 +21,7 @@ class Enemy():
         self.is_destroyed = False
         self.index = 0
         self.shooting_time = 0
+        self.invincible_ticks = 0
 
     def update(self, bullet_handler):
         if self.rect.y >= SCREEN_HEIGHT:

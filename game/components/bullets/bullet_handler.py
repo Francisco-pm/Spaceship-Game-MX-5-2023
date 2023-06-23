@@ -6,22 +6,24 @@ class BulletHandler:
     def __init__(self):
         self.bullets = []
 
-    def update(self, player, enemies):
-        for bullet in self.bullets:
+    def update(self, player, enemies, bosses):
+        for bullet in self.get_list():
             if type(bullet) is BulletEnemy:
                 bullet.update(player)
             elif type(bullet) is BulletSpaceship:
                 for enemy in enemies:
                     bullet.update(enemy)
-            if not bullet.is_alive:
-                self.remove_bullet(bullet)
+                for boss in bosses:
+                    bullet.update(boss)
+
+            self.remove_bullet(bullet)
             
 
     def get_list(self):
         return self.bullets
 
     def draw(self, screen):
-        for bullet in self.bullets:
+        for bullet in self.get_list():
             bullet.draw(screen)
 
     def add_bullet(self, type, center):
@@ -31,7 +33,8 @@ class BulletHandler:
             self.bullets.append(BulletSpaceship(center))
 
     def remove_bullet(self, bullet):
-        self.bullets.remove(bullet)
+        if not bullet.is_alive:
+            self.bullets.remove(bullet)
 
     def reset(self):
         self.bullets = []

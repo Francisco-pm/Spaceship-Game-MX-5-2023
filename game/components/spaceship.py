@@ -12,6 +12,7 @@ class Spaceship:
     Y_POS = (SCREEN_HEIGHT // 2) + HEIGHT
     SHOOTING_TIME = 6
     SPEED = 15
+    MAX_HITS = 3
 
     def __init__(self):
         self.image = SPACESHIP
@@ -19,10 +20,13 @@ class Spaceship:
         self.rect = self.image.get_rect()
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
+        self.is_destroyed = False
         self.is_alive = True
         self.shooting_time = 0
+        self.hits = 0
+        self.invincible_ticks = 0
 
-    def update(self, user_input, bullet_handler, enemy_handler):
+    def update(self, user_input, bullet_handler, enemy_handler, boss_handler):
         if user_input[pygame.K_LEFT]:
             self.move_left()
         elif user_input[pygame.K_RIGHT]:
@@ -37,6 +41,19 @@ class Spaceship:
 
         self.collide(bullet_handler.get_list())
         self.collide(enemy_handler.get_list())
+        self.collide(boss_handler.get_list())
+
+        if self.is_destroyed:
+            self.hits += 1
+            self.invincible_ticks = 100
+        
+        if self.invincible_ticks > 0:
+            self.invincible_ticks -= 1
+
+        if self.hits > self.MAX_HITS:
+            self.is_alive = False
+
+        
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -63,14 +80,16 @@ class Spaceship:
         self.shooting_time += 1
 
     def collide(self, objects):
-        if not (type(objects) is Spaceship):
+        if not (type(objects) is Spaceship) and self.invincible_ticks <= 0:
             for object in objects:
                 if not (type(object) is BulletSpaceship):
                     if self.rect.colliderect(object.rect):
-                        object.is_alive = False
-                        self.is_alive = False
+                        object.is_destroyed = False
+                        self.is_destroyed = True
 
     def reset(self):
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
         self.is_alive = True
+        self.hits = 0
+        self.is_destroyed = False
