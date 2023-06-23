@@ -154,3 +154,4 @@ class Game:
         self.power_ups_handler.reset()
         self.score = 0
         self.round = 1
+        pygame.mixer_music.play(-1)
