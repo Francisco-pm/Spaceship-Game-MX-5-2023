@@ -5,6 +5,7 @@ from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_handler import EnemyHandler
 from game.components.enemies.bosses.boss_handler import BossHandler
 from game.components.bullets.bullet_handler import BulletHandler
+from game.components.power_ups.powerup_handler import PowerUpHandler
 from game.utils import text_utils
 
 
@@ -24,6 +25,7 @@ class Game:
         self.enemy_handler = EnemyHandler()
         self.bullet_handler = BulletHandler()
         self.boss_handler = BossHandler()
+        self.power_ups_handler = PowerUpHandler()
         self.number_deaths = 0
         self.score = 0
         self.scores = []
@@ -57,6 +59,7 @@ class Game:
             self.boss_handler.update(self.bullet_handler, self.round)
             self.enemy_handler.update(self.bullet_handler, self.boss_handler)
             self.bullet_handler.update(self.player, self.enemy_handler.get_list(), self.boss_handler.get_list())
+            self.power_ups_handler.update(self.player)
             self.score = self.get_score()
             self.change_round()
             if not self.player.is_alive:
@@ -73,6 +76,7 @@ class Game:
             self.boss_handler.draw(self.screen)
             self.enemy_handler.draw(self.screen)
             self.bullet_handler.draw(self.screen)
+            self.power_ups_handler.draw(self.screen)
             self.draw_score()
         else:
             self.draw_menu()
@@ -134,5 +138,6 @@ class Game:
         self.enemy_handler.reset()
         self.bullet_handler.reset()
         self.boss_handler.reset()
+        self.power_ups_handler.reset()
         self.score = 0
         self.round = 1

@@ -46,4 +46,6 @@ RIGHT = "right"
 UP = "up"
 DOWN = "down"
 
+RESET = "reset"
+
 GAMEOVER = pygame.image.load(os.path.join(IMG_DIR, "Other/GameOver.png"))

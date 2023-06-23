@@ -1,5 +1,5 @@
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import BULLET_ENEMY
+from game.utils.constants import BULLET_ENEMY, SCREEN_HEIGHT
 import pygame
 
 class BulletEnemy(Bullet):
@@ -14,4 +14,14 @@ class BulletEnemy(Bullet):
 
     def update(self, player):
         self.rect.y += self.SPEED
-        super().update(player)
+        if self.rect.y > SCREEN_HEIGHT:
+            self.is_alive = False
+        
+        if self.rect.colliderect(player.rect):
+            if player.invincible or player.shielded:
+                self.is_alive = False
+            else:
+                player.is_destroyed = True
+                player.get_hit()
+                self.is_alive = False
+        

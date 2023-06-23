@@ -13,9 +13,8 @@ class Bullet:
             self.is_alive = False
         
         if self.rect.colliderect(object.rect):
-            if not (object.invincible_ticks > 0):
-                object.is_destroyed = True
-                self.is_alive = False
+            object.is_destroyed = True
+            self.is_alive = False
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
