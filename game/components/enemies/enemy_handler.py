@@ -5,7 +5,7 @@ from random import choice
 
 class EnemyHandler:
     SPAWN_RATE = 50
-    BOSS_SPAWN_RATE = 5
+    BOSS_SPAWN_RATE = 20
     def __init__(self):
         self.enemies = []
         self.counter = 1
@@ -67,3 +67,4 @@ class EnemyHandler:
         self.spawn_rate = self.SPAWN_RATE
         self.counter = 1
         self.number_enemies_destroyed_in_round = 0
+        self.enemy_round = True

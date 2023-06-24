@@ -47,3 +47,4 @@ class BossHandler:
         self.bosses = []
         self.bosses_defetead = 0
         self.bosses_defetead_in_round = 0
+        self.boss_round = False
