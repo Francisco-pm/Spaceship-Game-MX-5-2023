@@ -7,7 +7,7 @@ class PowerUpHandler:
     def __init__(self):
         self.power_ups = []
         self.interval = self.INTERVAL
-        self.counter
+        self.counter = 0
 
     def get_list(self):
         return self.power_ups
