@@ -104,11 +104,10 @@ class Spaceship:
     def collide(self, objects):
         if not (self.invincible or self.shielded):
             for object in objects:
-                if not (type(object) is BulletSpaceship):
-                    if self.rect.colliderect(object.rect):
-                        object.is_destroyed = True
-                        self.is_destroyed = True
-                        self.get_hit()
+                if self.rect.colliderect(object.rect):
+                    object.is_destroyed = True
+                    self.is_destroyed = True
+                    self.get_hit()
 
     def activate_power_up(self, power_up):
         self.time_up = power_up.time_up
