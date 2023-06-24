@@ -17,16 +17,16 @@ Existe 1 tipo de powerup:
     -Shield: Al tomarlo el jugador obtiene un escudo que lo hacen invulnerable contra balas y choques con enemigos.
 
 Enemigos:
-Son objetos que hacen daño por contacto al jugador y ademas pueden disparar balas
+Son objetos que hacen daño por contacto al jugador y ademas pueden disparar balas en intervalos de tiempo definididos
 Existen 3 tipos de enemigos en el juego:
 Ship = consiste en una nave que baja a velocidad constante y que constantemente o al chocar con los limites de la pantalla cambia su direccion
 Spider = Parecido al anterior esta nave baja a velocidad constante pero mas rapidamente y sus cambios de direccion son aleatorios, puede moverse tanto a izquierda como a derecha, lo cual la hace menos predecible, por su mayor dificultad tambien tiene una velocidad de disparo mas lenta
 Alien = El enemigo mas sencillo, su unico movimiento es avanzar de izquierda a derecha y al tocar un limite de la pantalla bajar un poco, tiene la velocidad de ataque mas lenta de los 3 enemigos siendo raro verlos disparar antes de ser destruidos
 
 Jefes:
-Aparecen despues de destruir una cantidad de enemigos, parecidos a los enemigos los jefes hacen daño por contacto y ademas disparan, con la diferencia de que estos ademas tienen una cantidad de vida que los hace resistir varios impactos y cuentan con distintos patrones de movimiento y disparo.
+Aparecen despues de destruir una cantidad fija de enemigos en una ronda, parecidos a los enemigos los jefes hacen daño por contacto y ademas disparan, con la diferencia de que estos ademas tienen una cantidad de vida que los hace resistir varios impactos y cuentan con distintos patrones de movimiento y disparo.
 su cantidad de vida se reduce en 5 por cada disparo o colision que reciban.
-AlienLeader = El Lider de los Aliens tiene la nave mas grande del juego y esta equipada con dos modos distintos. 
+AlienLeader = El Lider de los Aliens tiene la nave mas grande del juego y esta equipada con dos patrones distintos. 
                 -En el primer modo se mueve en diagonal y rebota con las esquinas. Dispara desde su centro una bala hacia arriba y una hacia abajo
                 -El segundo modo lo hace moverse solo en horizontal pero ahora disparando 3 balas hacia arriba y 3 hacia abajo las bala del centro sale desde un poco mas arriba que las otras dos lo que hace el patron mas dificil de predecir
 
